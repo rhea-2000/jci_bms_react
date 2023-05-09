@@ -18,9 +18,16 @@ jobs:
         run: npm install	
       - name: Run Test
         run: npm run test -- --coverage . --watchAll=false
-      - name: Install Jest Sonar Reporter and Sonarqube Scanner
-        run: npm install -D jest-sonar-reporter sonarqube-scanner
-             sonar-scanner --version
-      - name: SonarCloud Analysis
-        run: sonar-scanner -Dsonar.projectKey= jci-bms-platform-react -Dsonar.login=${{ env.SONAR_TOKEN }} -Dsonar.sources=. -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
-           
+      - name: Install SonarScanner
+        run: |
+          $url = 'https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.1.2450.zip'
+          $zipPath = "$env:USERPROFILE\sonar-scanner.zip"
+          $extractPath = "$env:USERPROFILE\sonar-scanner"
+          Invoke-WebRequest -Uri $url -OutFile $zipPath
+          Expand-Archive -Path $zipPath -DestinationPath $extractPath
+          $env:PATH += ";$extractPath\bin"
+          Write-Host "Installed SonarScanner"
+      - name: Run SonarScanner
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    
