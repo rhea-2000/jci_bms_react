@@ -21,5 +21,9 @@ jobs:
           sonar-scanner --version
       - name: Run tests and collect coverage
         run: npm test -- --coverage --watchAll=false
-      - name: Sonar
-        run: sonar-scanner 
+      - name: SonarCloud Analysis
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          organization: jci-bms
+          projectKey: jci-bms_jci-bms
+          token: ${{ secrets.SONAR_TOKEN }}
