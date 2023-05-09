@@ -8,19 +8,17 @@ on:
 jobs:
   sonarcloud:
     name: SonarCloud
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0 
       - name: Install dependencies
-        run: npm install		  
-      - name: Install SonarCloud scanner
-        run: |
-          npm install -g sonarqube-scanner
-          sonar-scanner --version
-      - name: Run tests and collect coverage
-        run: npm test -- --coverage --watchAll=false
-      - name: SonarCloud Analysis
-        uses: sonarsource/sonarcloud-github-action@master
+        run: npm install		
+      - name: Run tests and generate coverage report for React
+        run: npm test -- --coverage --coverageReporters=lcov
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
