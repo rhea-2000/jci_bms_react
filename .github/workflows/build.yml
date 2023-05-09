@@ -16,15 +16,10 @@ jobs:
           fetch-depth: 0 
       - name: Install dependencies
         run: npm install	
-      - name: Build 
-        run: npm run build
-      - name: Run test
-        run: npm test -- --coverage --coverageReporters=lcov
-      - name: Install SonarScanner
-        run: npm install -g sonarqube-scanner
+      - name: Run Test
+        run: npm run test -- --coverage . --watchAll=false
+      - name: Install Jest Sonar Reporter and Sonarqube Scanner
+        run: npm install -D jest-sonar-reporter sonarqube-scanner
       - name: SonarCloud Analysis
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-            sonar-scanner -Dsonar.login="${{ env.SONAR_TOKEN }}" -Dsonar.projectKey="jci-bms-platform-react" -Dsonar.javascript.lcov.reportPaths="coverage/lcov.info"
-
+        run: npm sonar-scanner -Dsonar.projectKey= jci-bms-platform-react -Dsonar.login=${{ env.SONAR_TOKEN }} -Dsonar.sources=. -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
+           
