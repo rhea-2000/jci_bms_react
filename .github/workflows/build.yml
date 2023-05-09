@@ -26,5 +26,5 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-            sonar-scanner.bat -Dsonar.login="${{ env.SONAR_TOKEN }}" -Dsonar.projectKey="jci-bms-platform-react" -Dsonar.javascript.lcov.reportPaths="coverage/lcov.info"
+            sonar-scanner -Dsonar.login="${{ env.SONAR_TOKEN }}" -Dsonar.projectKey="jci-bms-platform-react" -Dsonar.javascript.lcov.reportPaths="coverage/lcov.info"
 
