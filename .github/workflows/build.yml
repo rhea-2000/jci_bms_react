@@ -21,8 +21,3 @@ jobs:
         uses: sonarsource/sonar-scanner-cli@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          arguments: >
-            -Dsonar.projectKey=jci-bms-platform-react
-            -Dsonar.projectName=jci-bms-platform
-            -Dsonar.sources=src
