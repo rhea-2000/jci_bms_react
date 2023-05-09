@@ -23,9 +23,9 @@ jobs:
         run: npm test -- --coverage --watchAll=false
       - name: Sonar
         run: sonar-scanner \
-            -D "sonar.organization=jci-bms" \
-            -D "sonar.projectKey=jci-bms_jci-bms" \
-            -D "sonar.sources=src" \
-            -D "sonar.tests=src" \
-            -D "sonar.javascript.lcov.reportPaths=coverage/lcov.info" \
-            -D "sonar.login=${{ secrets.SONAR_TOKEN }}"
+            -Dsonar.organization=jci-bms \
+            -Dsonar.projectKey=jci-bms_jci-bms \
+            -Dsonar.sources=src \
+            -Dsonar.tests=src \
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
