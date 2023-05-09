@@ -10,21 +10,24 @@ jobs:
     name: SonarCloud
     runs-on: windows-latest
     steps:
+      - name: Checkout
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0 
       - name: Install dependencies
-        run: npm install		
-      - name: Run tests and generate coverage report for React
+        run: npm install	
+      - name: Build 
+        run: npm run build
+      - name: Run test
         run: npm test -- --coverage --coverageReporters=lcov
-      - name: Run SonarScanner for React
-        uses: sonarsource/sonar-scanner-cli@master
+      - name: Install SonarScanner
+        run: npm install -g sonarqube-scanner
+      - name: SonarCloud Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          arguments: >
-            -Dsonar.projectKey=jci-bms-platform-react
-            -Dsonar.sources=src
-            -Dsonar.tests=src
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+        run: |
+            sonar-scanner -Dsonar.projectKey=jci-bms-platform-react
+            sonar-scanner -Dsonar.sources=src
+            sonar-scanner -Dsonar.tests=src
+            sonar-scanner -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
