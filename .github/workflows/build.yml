@@ -17,4 +17,10 @@ jobs:
         run: npm install	
       - name: Run tests and generate coverage report for React
         run: npm test -- --coverage
-      
+      - name: Run SonarScanner for React
+        uses: sonarsource/sonar-scanner-cli@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          arguments: 
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
