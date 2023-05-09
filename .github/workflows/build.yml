@@ -23,7 +23,6 @@ jobs:
         run: npm test -- --coverage --watchAll=false
       - name: Sonar
         run: sonar-scanner \
-            -Dsonar.organization=jci-bms \
             -Dsonar.projectKey=jci-bms_jci-bms \
             -Dsonar.sources=src \
             -Dsonar.tests=src \
