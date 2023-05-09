@@ -10,7 +10,8 @@ jobs:
     name: SonarCloud
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0 
       - name: Install dependencies
@@ -23,7 +24,3 @@ jobs:
         run: npm test -- --coverage --watchAll=false
       - name: SonarCloud Analysis
         uses: sonarsource/sonarcloud-github-action@master
-        with:
-          organization: jci-bms
-          projectKey: jci-bms_jci-bms
-          token: ${{ secrets.SONAR_TOKEN }}
