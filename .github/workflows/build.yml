@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run tests and generate coverage report for React
-        run: npm test -- --coverage    
+        run: npm test -- --coverage --coverageReporters=lcov  
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
