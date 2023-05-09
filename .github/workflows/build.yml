@@ -22,10 +22,12 @@ jobs:
           Invoke-WebRequest -Uri https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472.zip -OutFile sonar-scanner.zip
           Expand-Archive -Path sonar-scanner.zip -DestinationPath $env:USERPROFILE
           $env:SONAR_SCANNER_HOME = "$env:USERPROFILE\sonar-scanner-cli-4.6.2.2472"
+      - name: Run Sonar Scanner
+        run: sonar-scanner-4.6.2.2472/bin/sonar-scanner.bat
       - name: SonarQube Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           $env:PATH += ";$env:SONAR_SCANNER_HOME\bin"
-          sonar-scanner
+          sonar-scanner.bat
         
