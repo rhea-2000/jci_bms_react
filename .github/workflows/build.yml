@@ -17,12 +17,14 @@ jobs:
         run: npm install		
       - name: Run tests and generate coverage report for React
         run: npm test -- --coverage --coverageReporters=lcov
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+      - name: Run SonarScanner for React
+        uses: sonarsource/sonar-scanner-cli@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          organization: jci-bms-platform
-          projectKey: jci-bms-platform-react
-          token: ${{ secrets.SONAR_TOKEN }}
+          arguments: >
+            -Dsonar.projectKey=jci-bms-platform-react
+            -Dsonar.sources=src
+            -Dsonar.tests=src
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+
