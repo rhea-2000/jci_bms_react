@@ -27,5 +27,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           $env:PATH += ";$env:SONAR_SCANNER_HOME\bin"
-          bat "sonar-scanner"
+          sonar-scanner
         
