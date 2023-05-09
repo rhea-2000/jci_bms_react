@@ -15,6 +15,8 @@ jobs:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Install dependencies
         run: npm install
+      - name: Update dependencies
+        run: npm update
       - name: Build Package
         run: npm run build
       - name: Run tests and generate coverage report for React
