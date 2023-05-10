@@ -21,7 +21,7 @@ jobs:
       - name: Install SonarScanner
         run: npm install sonarqube-scanner --save-dev
       - name: SonarScanner Path
-        run: echo "SONAR_SCANNER_PATH=$(pwd)/node_modules/sonarqube-scanner" >> $GITHUB_ENV
+        run: echo "::set-env name=SONAR_SCANNER_PATH::$(pwd)/node_modules/sonarqube-scanner"
       - name: Run SonarScanner
         run: ${{ env.SONAR_SCANNER_PATH }}/bin/sonar-scanner
         env:
