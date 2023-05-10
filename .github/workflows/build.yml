@@ -19,11 +19,9 @@ jobs:
       - name: Run Test
         run: npm run test -- --coverage . --watchAll=false
       - name: Install SonarScanner
-        run: npm install sonarqube-scanner --save-dev
-      - name: SonarScanner Path
-        run: echo "SONAR_SCANNER_PATH=$(pwd)/node_modules/sonarqube-scanner" >> $GITHUB_ENV
+        run: npm install -g sonarqube-scanner
       - name: Run SonarScanner
-        run: ${{ env.SONAR_SCANNER_PATH/bin/sonar-scanner }}
+        run: sonar-scanner
         env:
           SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
           SONAR_HOST_URL: "https://sonarcloud.io"
