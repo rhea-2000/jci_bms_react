@@ -23,7 +23,7 @@ jobs:
       - name: SonarScanner Path
         run: echo "SONAR_SCANNER_PATH=$(pwd)/node_modules/sonarqube-scanner" >> $GITHUB_ENV
       - name: Run SonarScanner
-        run: "${{ env.SONAR_SCANNER_PATH }}/bin/sonar-scanner"
+        run: ${{ env.SONAR_SCANNER_PATH/bin/sonar-scanner }}
         env:
           SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
           SONAR_HOST_URL: "https://sonarcloud.io"
