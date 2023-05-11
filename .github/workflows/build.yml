@@ -21,7 +21,7 @@ jobs:
       - name: Run Test
         run: npm run test -- --coverage . --watchAll=false
       - name: Install SonarScanner
-        run: npm install -g sonarqube-scanner
+        uses: SonarSource/sonarcloud-github-action@v1.9.1
       - name: SonarCloud Analysis
         run: sonar-scanner
         env:
