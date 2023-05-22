@@ -38,3 +38,5 @@ jobs:
         with:
           name: sonarcloud-report
           path: sonarcloud_report.json
+      - name: Check SonarCloud Report
+        run: cat sonarcloud_report.json
