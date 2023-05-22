@@ -32,10 +32,10 @@ jobs:
       - name: Download SonarCloud Report
         run: |
           curl -u $SONAR_TOKEN: -o sonarcloud_report.json "https://sonarcloud.io/api/measures/component?component=react-application&metricKeys=coverage,bugs,vulnerabilities"
-      - name: Store analysis report
+      - name: Store Analysis Report
         uses: actions/upload-artifact@v2
         with:
           name: sonarcloud-report
           path: sonarcloud_report.json
-      - name: Move report to separate folder
-        run: mv ./sonarqube/. ./reports/sonar
+      - name: Display Analysis Report
+        run: cat sonarcloud_report.json
