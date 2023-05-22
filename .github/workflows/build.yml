@@ -29,7 +29,6 @@ jobs:
           SONAR_HOST_URL: "https://sonarcloud.io"
           SONAR_PROJECT_KEY: "jci-bms-platform-react"
           SONAR_COVERAGE_REPORT_PATH: "coverage/lcov.info"
-          SONAR_ANALYSIS_REPORT_PATH: "${{ github.workspace }}/reports/sonarcloud_report.xml"
       - name: Download SonarCloud Report
         run: |
           curl -u $SONAR_TOKEN: -o sonarcloud_report.json "https://sonarcloud.io/api/measures/component?component=jci-bms-platform-react&metricKeys=coverage,bugs,vulnerabilities"
