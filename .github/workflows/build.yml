@@ -29,9 +29,9 @@ jobs:
           SONAR_HOST_URL: "https://sonarcloud.io"
           SONAR_PROJECT_KEY: "jci-bms-platform-react"
           SONAR_COVERAGE_REPORT_PATH: "coverage/lcov.info"
-          SONAR_ANALYSIS_REPORT_PATH: "./reports/sonarqube_report.xml"
+          SONAR_ANALYSIS_REPORT_PATH: "${{ github.workspace }}/reports/sonarcloud_report.xml"
       - name: Store analysis report
         uses: actions/upload-artifact@v2
         with:
           name: sonarqube-report
-          path: ${{ github.workspace }}/reports/sonarqube_report.xml
+          path: ${{ github.workspace }}/reports/sonarcloud_report.xml
