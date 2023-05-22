@@ -32,7 +32,7 @@ jobs:
           SONAR_ANALYSIS_REPORT_PATH: "${{ github.workspace }}/reports/sonarcloud_report.xml"
       - name: Download SonarCloud Report
         run: |
-          curl -u $SONAR_TOKEN: -o sonarcloud_report.json "https://sonarcloud.io/api/measures/component?component=<your_project_key>&metricKeys=coverage,bugs,vulnerabilities"
+          curl -u $SONAR_TOKEN: -o sonarcloud_report.json "https://sonarcloud.io/api/measures/component?component=jci-bms-platform-react&metricKeys=coverage,bugs,vulnerabilities"
       - name: Store analysis report
         uses: actions/upload-artifact@v2
         with:
