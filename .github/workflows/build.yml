@@ -20,13 +20,21 @@ jobs:
         run: npm run build
       - name: Run Test
         run: npm run test -- --coverage . --watchAll=false
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
-          SONAR_HOST_URL: "https://sonarcloud.io"
-          SONAR_PROJECT_KEY: "jci-bms-platform-react"
-          SONAR_COVERAGE_REPORT_PATH: "coverage/lcov.info"
+      - name: Download and Extract SonarScanner CLI
+        run: |
+          $url = 'https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-windows.zip'
+          $output = 'sonar-scanner.zip'
+          Invoke-WebRequest -Uri $url -OutFile $output
+          Expand-Archive -Path $output -DestinationPath 'sonar-scanner'
+      - name: Set SonarQube Scanner Home
+        run: |
+          echo "SONAR_SCANNER_HOME=$(pwd)/sonar-scanner" >> $GITHUB_ENV
+      - name: Run SonarQube Analysis
+        run: |
+          .\sonar-scanner\bin\sonar-scanner.bat
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.coverageReportPaths=coverage/lcov.info
       - name: Download SonarCloud Report
         run: |
           curl -u $SONAR_TOKEN: -o sonarcloud_report.json "https://sonarcloud.io/api/measures/component?component=jci-bms-platform-react&metricKeys=coverage,bugs,vulnerabilities"
