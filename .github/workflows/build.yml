@@ -19,8 +19,14 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu'
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
       - name: Install dependencies
-        run: npm install	
+        run: npm ci --ignore-scripts
       - name: Build React
         run: npm run build
       - name: Run Test
